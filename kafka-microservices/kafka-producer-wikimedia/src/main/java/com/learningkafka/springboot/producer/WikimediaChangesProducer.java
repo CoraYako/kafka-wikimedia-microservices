@@ -2,7 +2,7 @@ package com.learningkafka.springboot.producer;
 
 import com.launchdarkly.eventsource.EventHandler;
 import com.launchdarkly.eventsource.EventSource;
-import com.learningkafka.springboot.constants.KafkaConstants;
+import com.learningkafka.springboot.constants.KafkaProducerConstants;
 import com.learningkafka.springboot.handler.WikimediaChangesHandler;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -23,9 +23,9 @@ public class WikimediaChangesProducer {
 
     public void sendMessage() throws InterruptedException {
         //to read real time stream data from wikimedia, we use event source
-        EventHandler eventHandler = new WikimediaChangesHandler(kafkaTemplate, KafkaConstants.TOPIC_NAME);
+        EventHandler eventHandler = new WikimediaChangesHandler(kafkaTemplate, KafkaProducerConstants.TOPIC_NAME);
         EventSource.Builder eventSourceBuilder = new EventSource
-                .Builder(eventHandler, URI.create(KafkaConstants.STREAM_DATA_URL));
+                .Builder(eventHandler, URI.create(KafkaProducerConstants.STREAM_DATA_URL));
         EventSource eventSource = eventSourceBuilder.build();
 
         eventSource.start();
