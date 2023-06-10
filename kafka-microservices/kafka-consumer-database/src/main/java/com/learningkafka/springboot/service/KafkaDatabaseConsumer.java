@@ -1,5 +1,6 @@
 package com.learningkafka.springboot.service;
 
+import com.learningkafka.springboot.constants.KafkaConsumerConstants;
 import com.learningkafka.springboot.entity.WikimediaData;
 import com.learningkafka.springboot.repository.WikimediaDataRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class KafkaDatabaseConsumer {
 
     private final WikimediaDataRepository wikimediaDataRepository;
 
-    @KafkaListener(topics = "wikimedia_recent_changes", groupId = "consumerGroup")
+    @KafkaListener(topics = KafkaConsumerConstants.TOPIC_NAME, groupId = KafkaConsumerConstants.GROUP_ID)
     public void consume(String eventMessage) {
         LOGGER.info(String.format("Event message received -> %s", eventMessage));
 
